@@ -1,16 +1,14 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { AppStyled } from "./AppStyled";
-import Home from "./components/Home";
+import Home from "./components/Home/Home";
 
 function App() {
   return (
     <AppStyled>
       <Routes>
         <Route path="/" element={<Home />} />
-      </Routes>
-      <Routes>
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/*" element={<Home />} />
       </Routes>
     </AppStyled>
   );
