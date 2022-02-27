@@ -35,12 +35,11 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 const { User, Transaction } = sequelize.models;
 
-User.belongsToMany(Transaction, {
-  through: "User_transactions",
+User.hasMany(Transaction, {
+  foreignKey: "id_user",
   timestamps: false,
 });
 Transaction.belongsTo(User, {
-  through: "User_transactions",
   foreignKey: "id_user",
   timestamps: false,
 });

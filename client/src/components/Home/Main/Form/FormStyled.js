@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const FormStyled = styled.div`
   width: 58%;
+  .transactionform {
+    display: none;
+  }
   .formtop {
     width: 100%;
     display: flex;
