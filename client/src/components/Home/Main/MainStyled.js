@@ -21,6 +21,7 @@ export const MainStyled = styled.div`
     grid-area: 3 / 2 / 11 / 6;
     border: 1px solid #d9d9d9;
     border-radius: 4px;
+    position: relative;
     table {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
         Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -51,5 +52,17 @@ export const MainStyled = styled.div`
     border: 1px solid #d9d9d9;
     display: flex;
     justify-content: flex-start;
+  }
+  .sintransacciones {
+    border: none;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #555;
   }
 `;
