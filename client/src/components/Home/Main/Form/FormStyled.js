@@ -46,3 +46,24 @@ export const FormStyled = styled.div`
     }
   }
 `;
+
+export const AsideButton = styled.aside`
+  width: 42%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    width: 10ch;
+    font-size: 1.5rem;
+    border: 1px solid #8f8f9d;
+    border-radius: 3px;
+    transition: 0.02s all;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+`;

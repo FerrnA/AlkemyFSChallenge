@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { HomeStyled } from "./HomeStyled.js";
 import { VscGithubAlt } from "react-icons/vsc";
 import Main from "./Main/Main.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllTransactions } from "../../redux/reducers/transactions/actions.js";
 
 function Home() {
+  const dispatch = useDispatch();
+  let data = useSelector((state) => state.transactions);
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      dispatch(fetchAllTransactions());
+    }
+    return () => (mounted = false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <HomeStyled>
       <header>
@@ -12,11 +25,11 @@ function Home() {
           alt=""
         />
         <span>
-          <b>fernando</b>
+          <b>fer</b>
         </span>
       </header>
       <main>
-        <Main></Main>
+        <Main data={data}></Main>
       </main>
       <footer>
         <span>

@@ -88,10 +88,5 @@ conn.sync({ force: false }).then(async () => {
     date: newdate,
   });
   await newOrder10.setUser(1);
-  const newOrder11 = await Transaction.create({
-    amount: "10",
-    type: "Egress",
-    date: newdate,
-  });
-  await newOrder11.setUser(1); */
+  */
 });

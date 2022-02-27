@@ -5,9 +5,9 @@ export const handleShowForm = (formRef) => {
 };
 
 export const handleClick = (str, setTransactionType) => {
-  if (str === "ingress") {
-    setTransactionType("ingress");
+  if (str === "Ingress") {
+    setTransactionType("Ingress");
   } else {
-    setTransactionType("egress");
+    setTransactionType("Egress");
   }
 };
