@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { AsideButton, FormStyled } from "./FormStyled";
 import { BsPlusSquare } from "react-icons/bs";
 import { handleShowForm, handleClick } from "./utils/functions";
-import { putTransaction } from "../../../../redux/reducers/transactions/actions";
+import { postTransaction } from "../../../../redux/reducers/transactions/actions";
 
 const bgwhite = { backgroundColor: "#e9e9ed" };
 const bgblue = {
@@ -13,15 +13,17 @@ const bgblue = {
 function Form() {
   const [transactionType, setTransactionType] = useState("");
   const [transactionAmount, setTransactionAmount] = useState("");
+  const [transactionDate, setTransactionDate] = useState("");
   const [transactionDescription, setTransactionDescription] = useState("");
   const formRef = useRef();
   const dispatch = useDispatch();
 
   const handleSubmitForm = async () => {
     await dispatch(
-      putTransaction({
+      postTransaction({
         type: transactionType,
         amount: transactionAmount,
+        date: transactionDate,
         description: transactionDescription,
       })
     );
@@ -52,7 +54,7 @@ function Form() {
                 Egreso
               </button>
             </div>
-            <div className="amountInput">
+            <div className="amountDiv">
               <input
                 placeholder="$    monto"
                 value={transactionAmount}
@@ -63,7 +65,15 @@ function Form() {
               ></input>
             </div>
           </div>
-          <div className="descriptionInput">
+          <div className="dateDiv">
+            <i>Date:&nbsp;</i>
+            <input
+              type="datetime-local"
+              value={transactionDate}
+              onChange={(e) => setTransactionDate(e.target.value)}
+            ></input>
+          </div>
+          <div className="descriptionDiv">
             <textarea
               placeholder="Concepto (opcional)"
               value={transactionDescription}
@@ -72,19 +82,21 @@ function Form() {
           </div>
         </div>
       </FormStyled>
-      {transactionType.length > 0 && transactionAmount.length > 0 && (
-        <AsideButton>
-          <button
-            style={{
-              backgroundImage:
-                "linear-gradient(to right, #4c7ed5 0 20%, #1b92bb)",
-            }}
-            onClick={handleSubmitForm}
-          >
-            Continuar
-          </button>
-        </AsideButton>
-      )}
+      {transactionType.length > 0 &&
+        transactionAmount.length > 0 &&
+        transactionDate.length > 0 && (
+          <AsideButton>
+            <button
+              style={{
+                backgroundImage:
+                  "linear-gradient(to right, #4c7ed5 0 20%, #1b92bb)",
+              }}
+              onClick={handleSubmitForm}
+            >
+              Continuar
+            </button>
+          </AsideButton>
+        )}
     </>
   );
 }

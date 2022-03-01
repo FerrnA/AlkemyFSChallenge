@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ALL_TRANSACTIONS, PUT_TRANSACTION } from "./const";
+import { GET_ALL_TRANSACTIONS, GET_USER_BALANCE } from "./const";
 
 export function actionCreator(actionType, data) {
   return {
@@ -19,11 +19,41 @@ export const fetchAllTransactions = function () {
   };
 };
 
-export const putTransaction = function (transacData) {
+export const postTransaction = function (transacData) {
+  return async function () {
+    try {
+      await axios.post("/transactions", transacData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getUserBalance = function (userId) {
   return async function (dispatch) {
     try {
-      const res = await axios.post("/transactions", transacData);
-      dispatch(actionCreator(PUT_TRANSACTION, res.data));
+      const res = await axios.get("/transactions/balance", userId);
+      dispatch(actionCreator(GET_USER_BALANCE, res.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const putTransaction = function (data) {
+  return async function () {
+    try {
+      await axios.put("/transactions/", data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const deleteTransaction = function (idTransaction) {
+  return async function () {
+    try {
+      await axios.delete(`/transactions/${idTransaction}`);
     } catch (error) {
       console.log(error);
     }

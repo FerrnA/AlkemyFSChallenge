@@ -1,13 +1,13 @@
-import { GET_ALL_TRANSACTIONS, PUT_TRANSACTION } from "./const";
+import { GET_ALL_TRANSACTIONS, GET_USER_BALANCE } from "./const";
 
-const initialState = [];
+const initialState = {};
 
 export const transactions = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_ALL_TRANSACTIONS:
-      return [...payload.userTransactions];
-    case PUT_TRANSACTION:
-      return state;
+      return { ...state, transactions: [...payload.userTransactions] };
+    case GET_USER_BALANCE:
+      return { ...state, userBalance: payload.userBalance };
     default:
       return state;
   }

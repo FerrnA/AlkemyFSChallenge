@@ -3,15 +3,20 @@ import { HomeStyled } from "./HomeStyled.js";
 import { VscGithubAlt } from "react-icons/vsc";
 import Main from "./Main/Main.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllTransactions } from "../../redux/reducers/transactions/actions.js";
+import {
+  fetchAllTransactions,
+  getUserBalance,
+} from "../../redux/reducers/transactions/actions.js";
 
 function Home() {
   const dispatch = useDispatch();
-  let data = useSelector((state) => state.transactions);
+  let data = useSelector((state) => state.transactions.transactions);
+  let balance = useSelector((state) => state.transactions.userBalance);
   useEffect(() => {
     let mounted = true;
     if (mounted) {
       dispatch(fetchAllTransactions());
+      dispatch(getUserBalance());
     }
     return () => (mounted = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,7 +34,7 @@ function Home() {
         </span>
       </header>
       <main>
-        <Main data={data}></Main>
+        <Main data={data} balance={balance}></Main>
       </main>
       <footer>
         <span>

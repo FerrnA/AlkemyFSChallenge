@@ -2,10 +2,9 @@ const { Transaction } = require("../../db");
 
 const postTransaction = async (req, res, next) => {
   try {
-    const { amount, type, description } = req.body;
-    const newdate = new Date();
+    const { amount, type, description, date } = req.body;
     const newTransaction = await Transaction.create({
-      date: newdate,
+      date,
       amount,
       type,
       description,
