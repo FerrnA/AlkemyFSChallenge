@@ -30,15 +30,20 @@ export const FormStyled = styled.div`
       border-bottom-left-radius: 0;
     }
   }
-  .amountInput {
+  .amountDiv {
     width: 40%;
     display: flex;
     justify-content: flex-end;
   }
-  .descriptionInput {
+  .dateDiv {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .descriptionDiv {
     display: flex;
     align-items: center;
-    padding: 1rem 0 0 1rem;
+    padding: 0.5rem 0 0 1rem;
     textarea {
       width: 100%;
       height: 7rem;

@@ -11,6 +11,7 @@ export const MainStyled = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     span {
       font-size: 1.5rem;
       font-weight: 600;
@@ -23,8 +24,8 @@ export const MainStyled = styled.div`
     border-radius: 4px;
     position: relative;
     table {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+        "Open Sans", "Helvetica Neue", sans-serif;
       width: 100%;
       border-collapse: collapse;
       tbody {
