@@ -35,9 +35,9 @@ function Form() {
       <FormStyled>
         <BsPlusSquare
           onClick={() => handleShowForm(formRef)}
-          style={{ margin: "0 1.4rem 0 4rem" }}
+          style={{ margin: "0 1.4rem 0 0", "&:hover": { cursor: "pointer" } }}
         />
-        <span>Add new transaction</span>
+        <span>Agregar nueva transacción</span>
         <div className="transactionform" ref={formRef}>
           <div className="formtop">
             <div className="buttonsChoice">
@@ -59,8 +59,7 @@ function Form() {
                 placeholder="$    monto"
                 value={transactionAmount}
                 onChange={(e) => {
-                  if (!isNaN(Number(e.target.value)))
-                    setTransactionAmount(e.target.value);
+                  if (!isNaN(Number(e.target.value))) setTransactionAmount(e.target.value);
                 }}
               ></input>
             </div>
@@ -82,21 +81,18 @@ function Form() {
           </div>
         </div>
       </FormStyled>
-      {transactionType.length > 0 &&
-        transactionAmount.length > 0 &&
-        transactionDate.length > 0 && (
-          <AsideButton>
-            <button
-              style={{
-                backgroundImage:
-                  "linear-gradient(to right, #4c7ed5 0 20%, #1b92bb)",
-              }}
-              onClick={handleSubmitForm}
-            >
-              Continuar
-            </button>
-          </AsideButton>
-        )}
+      {transactionType.length > 0 && transactionAmount.length > 0 && transactionDate.length > 0 && (
+        <AsideButton>
+          <button
+            style={{
+              backgroundImage: "linear-gradient(to right, #4c7ed5 0 20%, #1b92bb)",
+            }}
+            onClick={handleSubmitForm}
+          >
+            Continuar
+          </button>
+        </AsideButton>
+      )}
     </>
   );
 }

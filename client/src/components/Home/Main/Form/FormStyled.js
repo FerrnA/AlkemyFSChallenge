@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const FormStyled = styled.div`
   width: 58%;
+  * {
+    box-sizing: border-box;
+  }
   .transactionform {
     display: none;
   }
@@ -10,6 +13,7 @@ export const FormStyled = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.2rem 0;
   }
   .buttonsChoice {
     button {
@@ -31,9 +35,12 @@ export const FormStyled = styled.div`
     }
   }
   .amountDiv {
-    width: 40%;
+    width: 38%;
     display: flex;
     justify-content: flex-end;
+    input {
+      width: 100%;
+    }
   }
   .dateDiv {
     display: flex;
@@ -48,6 +55,17 @@ export const FormStyled = styled.div`
       width: 100%;
       height: 7rem;
       resize: none;
+    }
+  }
+  @media screen and (max-width: 992px) {
+    width: 100%;
+    .descriptionDiv {
+      padding: 0.5rem 0 0 0;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .buttonsChoice {
+      width: 120px;
     }
   }
 `;
@@ -70,5 +88,8 @@ export const AsideButton = styled.aside`
     &:active {
       transform: scale(0.98);
     }
+  }
+  @media screen and (max-width: 992px) {
+    width: 100%;
   }
 `;

@@ -4,10 +4,11 @@ export const MainStyled = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(14, 1fr);
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(14, 60px);
+  grid-auto-rows: 60px;
   .balance {
-    grid-area: 1 / 3 / 3 / 5;
+    grid-area: 1 / 6 / 3 / 8;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +20,7 @@ export const MainStyled = styled.div`
     }
   }
   .transactions {
-    grid-area: 3 / 2 / 11 / 6;
+    grid-area: 3 / 3 / 11 / 11;
     border: 1px solid #d9d9d9;
     border-radius: 4px;
     position: relative;
@@ -34,21 +35,18 @@ export const MainStyled = styled.div`
       }
       th {
         font-weight: 600;
+        height: 2.5rem;
       }
       td,
       th {
         text-align: center;
-        height: 2.5rem;
         border-top: 1px solid #d9d9d9;
         border-right: 1px solid #d9d9d9;
-      }
-      td {
-        height: 2.65rem;
       }
     }
   }
   .form {
-    grid-area: 11 / 2 / 15 / 6;
+    grid-area: 11 / 3 / 15 / 11;
     padding: 1rem;
     border: 1px solid #d9d9d9;
     display: flex;
@@ -65,5 +63,31 @@ export const MainStyled = styled.div`
     justify-content: center;
     align-items: center;
     color: #555;
+  }
+  @media screen and (max-width: 992px) {
+    .form {
+      grid-area: 11 / 2 / 16 / 12; //
+      padding: 1rem; //
+      border: 1px solid #d9d9d9; //
+      display: flex; //
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .transactions {
+      grid-area: 3 / 2 / 11 / 12;
+    }
+  }
+  @media screen and (max-width: 550px) {
+    .form {
+    }
+    .transactions {
+      table {
+        th,
+        tbody,
+        td {
+          font-size: 12px;
+        }
+      }
+    }
   }
 `;

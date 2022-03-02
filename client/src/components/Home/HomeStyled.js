@@ -7,14 +7,14 @@ export const HomeStyled = styled.div`
   background-color: #f9f9f9;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 70px 1fr 40px;
+  grid-template-rows: 60px 1fr 40px;
   grid-template-areas:
     "header header"
     "main main"
     "footer footer";
   header {
     grid-area: header;
-    height: 70px;
+    height: 60px;
     padding: 0 2rem;
     display: flex;
     justify-content: flex-end;
