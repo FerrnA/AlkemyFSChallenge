@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { RowEditingStyled } from "./RowEditingStyled";
 import { useDispatch } from "react-redux";
 import { putTransaction } from "../../../../../redux/reducers/transactions/actions";
@@ -9,11 +9,13 @@ function RowEditing({ t, setIsEditing }) {
   const [amount, setAmount] = useState(t.amount);
   const [description, setDescription] = useState(t.description);
 
+  const refAmount = useRef();
+
   const dispatch = useDispatch();
 
-  const handleEditSubmit = () => {
-    if (amount.length > 0) {
-      dispatch(
+  const handleEditSubmit = async () => {
+    if (refAmount.current.value !== "") {
+      await dispatch(
         putTransaction({
           date,
           amount,
@@ -38,6 +40,7 @@ function RowEditing({ t, setIsEditing }) {
       <td>
         <input
           value={amount}
+          ref={refAmount}
           onChange={(e) => {
             if (!isNaN(Number(e.target.value))) setAmount(e.target.value);
           }}

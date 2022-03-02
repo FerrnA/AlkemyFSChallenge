@@ -14,10 +14,10 @@ function RowTransaction({ t }) {
 
   const handleDelete = async () => {
     swal({
-      title: `Esta por borrar la transacción`,
+      title: `Esta por borrar la transacción,`,
       text: "¿esta seguro/a que desea continuar?",
       icon: "warning",
-      button: "Accept",
+      button: "Aceptar",
     })
       .then((res) => dispatch(deleteTransaction(t.transaction_id)))
       .then((res) => window.location.reload(false));
@@ -31,7 +31,7 @@ function RowTransaction({ t }) {
       <td>{t.date.slice(0, 13).replace(/-|-/g, "/").replace("T", "  ")} hs</td>
       <td>${t.amount}</td>
       <td className="descriptionTd">
-        {t.description ? t.description : "-"}
+        <div className="textdiv">{t.description ? t.description : "-"}</div>
         <FiMoreVertical
           onClick={() => setShowOptions(!showOptions)}
           style={{
@@ -43,7 +43,7 @@ function RowTransaction({ t }) {
           onMouseOver={(e) => (e.target.style.cursor = "pointer")}
         />
         {showOptions && (
-          <div>
+          <div className="optionsdiv">
             <p>
               Edit<button onClick={() => setIsEditing(true)}>✏</button>
             </p>
