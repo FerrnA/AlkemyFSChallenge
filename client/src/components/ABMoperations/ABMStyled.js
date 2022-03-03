@@ -7,51 +7,52 @@ const alignTextDiv = css`
   text-align: center;
 `;
 
-export const HomeStyled = styled.div`
+export const ABMStyled = styled.div`
   width: 100%;
-  height: 100%;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(12, 60px);
+  grid-template-rows: repeat(17, 60px);
   grid-auto-rows: 60px;
   .balance {
     grid-area: 1 / 6 / 3 / 8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    ${alignTextDiv};
     span {
-      padding-top: 1rem;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 600;
       color: #b1eeb1;
     }
   }
+  .form {
+    grid-area: 3 / 3 / 7 / 11;
+    padding: 1rem;
+    border: 1px solid #d9d9d9;
+    display: flex;
+    justify-content: flex-start;
+  }
   .title1 {
-    grid-area: 3 / 4 / 4 / 10;
+    grid-area: 7 / 5 / 8 / 9;
     ${alignTextDiv};
     span {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       padding-top: 1rem;
-      letter-spacing: 0.02rem;
-      color: #0009;
     }
   }
   .transactions {
-    grid-area: 4 / 3 / 12 / 11;
+    grid-row-start: 8;
+    grid-column: 3 / 11;
+    min-height: 540px;
     border-radius: 4px;
     position: relative;
     overflow-y: scroll;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    -ms-overflow-style: none;
-    scrollbar-width: none;
     table {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
         "Open Sans", "Helvetica Neue", sans-serif;
       width: 100%;
       border-collapse: collapse;
+      thead {
+        position: sticky;
+        top: 1px;
+      }
       tbody {
         border: 1px solid #d9d9d9;
         border-radius: 4px;
@@ -71,14 +72,11 @@ export const HomeStyled = styled.div`
   .sintransacciones {
     border: none;
     position: absolute;
-    top: 2.5rem;
+    top: 30px;
     left: 0;
     width: 100%;
     bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f9f9f9;
+    ${alignTextDiv};
     color: #555;
   }
   .emptycells td {
@@ -86,18 +84,22 @@ export const HomeStyled = styled.div`
     color: #f9f9f9;
   }
   @media screen and (max-width: 992px) {
-    .balance {
-      span {
-        font-size: 1.7rem;
-      }
+    .form {
+      grid-area: 3 / 2 / 8 / 12;
+      flex-direction: column;
+    }
+    .title1 {
+      grid-area: 8 / 5 / 9 / 9;
     }
     .transactions {
-      grid-area: 4 / 2 / 12 / 12;
-    }
-  }
-  @media screen and (max-width: 768px) {
-    .title1 span {
-      font-size: 16px;
+      grid-row-start: 9;
+      grid-column: 2 / 12;
+      height: 540px;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   }
   @media screen and (max-width: 550px) {
@@ -115,12 +117,14 @@ export const HomeStyled = styled.div`
     .balance {
       grid-area: 1 / 5 / 3 / 9;
     }
+    .form span {
+      font-size: 14px;
+    }
+    .form .dateDiv input {
+      width: 150px;
+    }
     .title1 {
-      grid-area: 3 / 3 / 4 / 11;
-      span {
-        font-size: 14px;
-        padding-top: 1rem;
-      }
+      grid-area: 8 / 4 / 9 / 10;
     }
   }
 `;

@@ -1,0 +1,37 @@
+import React, { useRef } from "react";
+import { HeaderStyled, NavLinkStyled } from "./HeaderStyled";
+import { MdOutlineExpandMore } from "react-icons/md";
+
+function Header() {
+  const refMoreMenu = useRef();
+  const handleClickmoreIcon = () => {
+    refMoreMenu.current.style.display === "none"
+      ? (refMoreMenu.current.style.display = "block")
+      : (refMoreMenu.current.style.display = "none");
+  };
+
+  return (
+    <HeaderStyled>
+      <div className="user">
+        <img src="https://avatars.githubusercontent.com/u/86984902?s=40&v=4" alt="" />
+      </div>
+      <div className="moreIcon" onClick={handleClickmoreIcon}>
+        <span>
+          <b>fer</b>
+        </span>
+        <MdOutlineExpandMore />
+        <div className="moreMenu" ref={refMoreMenu}>
+          <div>
+            <NavLinkStyled to="/">Home</NavLinkStyled>
+          </div>
+          <div>
+            <NavLinkStyled to="/operations">Transacciones</NavLinkStyled>
+          </div>
+          <div>Logout</div>
+        </div>
+      </div>
+    </HeaderStyled>
+  );
+}
+
+export default Header;

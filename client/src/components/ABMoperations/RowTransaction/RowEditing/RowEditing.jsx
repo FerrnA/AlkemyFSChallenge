@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { RowEditingStyled } from "./RowEditingStyled";
 import { useDispatch } from "react-redux";
-import { putTransaction } from "../../../../../redux/reducers/transactions/actions";
+import { putTransaction } from "../../../../redux/reducers/transactions/actions";
 import swal from "sweetalert";
 
 function RowEditing({ t, setIsEditing }) {

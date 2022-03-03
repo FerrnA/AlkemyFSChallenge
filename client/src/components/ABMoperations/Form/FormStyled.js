@@ -67,6 +67,10 @@ export const FormStyled = styled.div`
     .buttonsChoice {
       width: 120px;
     }
+    .dateDiv,
+    .dateDiv i {
+      font-size: 12px;
+    }
   }
 `;
 
