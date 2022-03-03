@@ -3,7 +3,7 @@ import { RowTransactionStyled } from "./RowTransactionStyled";
 import { FiMoreVertical } from "react-icons/fi";
 import RowEditing from "./RowEditing/RowEditing";
 import { useDispatch } from "react-redux";
-import { deleteTransaction } from "../../../../redux/reducers/transactions/actions";
+import { deleteTransaction } from "../../../redux/reducers/transactions/actions";
 import swal from "sweetalert";
 
 function RowTransaction({ t }) {

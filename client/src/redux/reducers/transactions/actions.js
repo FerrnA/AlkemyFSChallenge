@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ALL_TRANSACTIONS, GET_USER_BALANCE } from "./const";
+import { GET_ALL_TRANSACTIONS, GET_LAST_TRANSACTIONS, GET_USER_BALANCE } from "./const";
 
 export function actionCreator(actionType, data) {
   return {
@@ -13,6 +13,17 @@ export const fetchAllTransactions = function () {
     try {
       const res = await axios.get("/transactions");
       dispatch(actionCreator(GET_ALL_TRANSACTIONS, res.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const fetchLastTransactions = function () {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get("/transactions/last");
+      dispatch(actionCreator(GET_LAST_TRANSACTIONS, res.data));
     } catch (error) {
       console.log(error);
     }

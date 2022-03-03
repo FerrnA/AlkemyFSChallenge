@@ -58,6 +58,8 @@ export const RowTransactionStyled = styled.tr`
       top: 2.7rem;
       right: 0;
       z-index: 99;
+      width: 84px;
+      height: 64px;
     }
   }
   @media screen and (max-width: 550px) {

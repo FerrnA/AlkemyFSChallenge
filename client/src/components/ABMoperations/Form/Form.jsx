@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { AsideButton, FormStyled } from "./FormStyled";
 import { BsPlusSquare } from "react-icons/bs";
 import { handleShowForm, handleClick } from "./utils/functions";
-import { postTransaction } from "../../../../redux/reducers/transactions/actions";
+import { postTransaction } from "../../../redux/reducers/transactions/actions";
 
 const bgwhite = { backgroundColor: "#e9e9ed" };
 const bgblue = {
