@@ -27,7 +27,7 @@ export const HomeStyled = styled.div`
       color: #b1eeb1;
     }
   }
-  .title1 {
+  .title-home {
     grid-area: 3 / 4 / 4 / 10;
     ${alignTextDiv};
     span {
@@ -68,7 +68,7 @@ export const HomeStyled = styled.div`
       }
     }
   }
-  .sintransacciones {
+  .no-transactions {
     border: none;
     position: absolute;
     top: 2.5rem;
@@ -81,9 +81,13 @@ export const HomeStyled = styled.div`
     background-color: #f9f9f9;
     color: #555;
   }
-  .emptycells td {
+  .empty-cells td {
     height: 2.65rem;
     color: #f9f9f9;
+  }
+  .table-head-row {
+    background-image: linear-gradient(to right, #8c65f6 0 20%, #019cad);
+    color: #e2e2e2;
   }
   @media screen and (max-width: 992px) {
     .balance {
@@ -96,7 +100,8 @@ export const HomeStyled = styled.div`
     }
   }
   @media screen and (max-width: 768px) {
-    .title1 span {
+    grid-template-columns: 0px repeat(10, 1fr) 0px;
+    .title-home span {
       font-size: 16px;
     }
   }
@@ -115,7 +120,7 @@ export const HomeStyled = styled.div`
     .balance {
       grid-area: 1 / 5 / 3 / 9;
     }
-    .title1 {
+    .title-home {
       grid-area: 3 / 3 / 4 / 11;
       span {
         font-size: 14px;

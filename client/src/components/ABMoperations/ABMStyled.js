@@ -29,7 +29,7 @@ export const ABMStyled = styled.div`
     display: flex;
     justify-content: flex-start;
   }
-  .title1 {
+  .title-abm {
     grid-area: 7 / 5 / 8 / 9;
     ${alignTextDiv};
     span {
@@ -69,7 +69,7 @@ export const ABMStyled = styled.div`
       }
     }
   }
-  .sintransacciones {
+  .no-transactions {
     border: none;
     position: absolute;
     top: 30px;
@@ -79,17 +79,24 @@ export const ABMStyled = styled.div`
     ${alignTextDiv};
     color: #555;
   }
-  .emptycells td {
+  .empty-cells td {
     height: 2.65rem;
     color: #f9f9f9;
+  }
+  .table-head-row {
+    background-image: linear-gradient(to right, #8c65f6 0 20%, #019cad);
+    color: #e2e2e2;
   }
   @media screen and (max-width: 992px) {
     .form {
       grid-area: 3 / 2 / 8 / 12;
       flex-direction: column;
     }
-    .title1 {
+    .title-abm {
       grid-area: 8 / 5 / 9 / 9;
+      span {
+        font-size: 1.1rem;
+      }
     }
     .transactions {
       grid-row-start: 9;
@@ -101,6 +108,9 @@ export const ABMStyled = styled.div`
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+  }
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 0px repeat(10, 1fr) 0px;
   }
   @media screen and (max-width: 550px) {
     .transactions {
@@ -123,7 +133,7 @@ export const ABMStyled = styled.div`
     .form .dateDiv input {
       width: 150px;
     }
-    .title1 {
+    .title-abm {
       grid-area: 8 / 4 / 9 / 10;
     }
   }

@@ -25,6 +25,11 @@ export const LoginStyled = styled.div`
     justify-content: center;
     align-items: center;
   }
+  @media screen and (max-width: 450px) {
+    .container-buttons {
+      flex-direction: column;
+    }
+  }
 `;
 
 export const Button = styled.button`

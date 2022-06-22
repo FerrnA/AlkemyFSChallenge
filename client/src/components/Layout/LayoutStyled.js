@@ -23,6 +23,7 @@ export const LayoutStyled = styled.div`
   }
   main {
     grid-area: main;
+    margin: 0 0.75rem;
     /* background-color: #c1f9d4; */
   }
   footer {

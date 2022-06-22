@@ -24,10 +24,11 @@ function Login() {
 
   return (
     <section className="container formulario">
-      <h2>Login</h2>
+      <h2>Login/Register</h2>
       <div>
-        <label htmlFor="useremail">User email:</label>
+        <label htmlFor="email">User email:</label>
         <input
+          type="text"
           name="email"
           placeholder="johndoe@correo.com"
           value={userdata.email}

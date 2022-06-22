@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
-import { Outlet } from "react-router-dom";
 import { LayoutStyled } from "./LayoutStyled.js";
-import { VscGithubAlt } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
+import { Outlet } from "react-router-dom";
 import {
   fetchLastTransactions,
   getUserBalance,
 } from "../../redux/reducers/transactions/actions.js";
+import { VscGithubAlt } from "react-icons/vsc";
 import Header from "./Header/Header.jsx";
 
 function Layout() {
   const dispatch = useDispatch();
-  let data = useSelector((state) => state.transactions.lasttransactions);
+  let data = useSelector((state) => state.transactions.lastTransactions);
   let balance = useSelector((state) => state.transactions.userBalance);
   useEffect(() => {
     let mounted = true;

@@ -10,7 +10,7 @@ function ABM() {
   const { balance } = useOutletContext();
   const dispatch = useDispatch();
 
-  let data = useSelector((state) => state.transactions.alltransactions);
+  let data = useSelector((state) => state.transactions.allTransactions);
   const noftransactions = data?.length || 0;
 
   useEffect(() => {
@@ -30,18 +30,13 @@ function ABM() {
       <div className="form">
         <Form />
       </div>
-      <div className="title1">
+      <div className="title-abm">
         <span>Historial de transacciones</span>
       </div>
       <div className="transactions">
         <table>
           <thead>
-            <tr
-              style={{
-                backgroundImage: "linear-gradient(to right, #8c65f6 0 20%, #019CAD)",
-                color: "#e2e2e2",
-              }}
-            >
+            <tr className="table-head-row">
               <th>Tipo</th>
               <th>Fecha</th>
               <th>Monto</th>
@@ -50,12 +45,14 @@ function ABM() {
           </thead>
           <tbody>
             {data && data.map((t) => <RowTransaction t={t} key={t.trasaction_id}></RowTransaction>)}
+            {/* Display a prompt in case there's no transactions in the database */}
             {noftransactions === 0 && (
-              <div className="sintransacciones">Sin transacciones registradas</div>
+              <div className="no-transactions">Sin transacciones registradas</div>
             )}
+            {/* Add empty rows in case transactions are less than 10 */}
             {noftransactions < 10 &&
               [...Array(10 - noftransactions)].map((i) => (
-                <tr className="emptycells">
+                <tr className="empty-cells">
                   <td></td>
                   <td></td>
                   <td></td>

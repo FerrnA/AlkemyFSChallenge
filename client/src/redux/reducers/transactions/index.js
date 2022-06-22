@@ -5,9 +5,9 @@ const initialState = {};
 export const transactions = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_ALL_TRANSACTIONS:
-      return { ...state, alltransactions: [...payload.userTransactions] };
+      return { ...state, allTransactions: [...payload.userTransactions] };
     case GET_LAST_TRANSACTIONS:
-      return { ...state, lasttransactions: [...payload.userTransactions] };
+      return { ...state, lastTransactions: [...payload.userTransactions] };
     case GET_USER_BALANCE:
       return { ...state, userBalance: payload.userBalance };
     default:

@@ -15,9 +15,15 @@
 .formulario label {
   display: block;
   font-weight: 600;
-  font-size: 14px;
-  margin-bottom: 5px;
+  font-size: 20px;
+  margin: 5px;
   color: #1f1f1f;
+}
+
+.formulario h2 {
+  font-size: 22px;
+  font-style: italic;
+  margin-bottom: 0.75rem;
 }
 
 .formulario input,
