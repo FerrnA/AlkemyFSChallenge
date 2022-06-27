@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { LoginStyled, Button } from "./LoginStyled";
+import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import axios from "axios";
 
 function Login() {
   const [userdata, setUserdata] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleOnChange = (e) => {
     setUserdata({ ...userdata, [e.target.name]: e.target.value });
@@ -19,12 +20,29 @@ function Login() {
       },
       withCredentials: true,
       url: "http://localhost:3001/user/register",
-    }).then((res) => console.log(res));
+    }).then((res) => {
+      if (res.statusText === "OK") {
+        alert("succesfully registered");
+        window.location.reload();
+      }
+    });
+  };
+  const handleLogIn = async () => {
+    await axios({
+      method: "post",
+      data: {
+        email: userdata.email,
+        password: userdata.password,
+      },
+      withCredentials: true,
+      url: "http://localhost:3001/user/login",
+    }).then((res) => {
+      if (res.statusText === "OK") navigate("/");
+    });
   };
 
   return (
     <section className="container formulario">
-      <h2>Login/Register</h2>
       <div>
         <label htmlFor="email">User email:</label>
         <input
@@ -46,7 +64,9 @@ function Login() {
         />
       </div>
       <div className="container-buttons">
-        <button type="submit">Log In</button>
+        <button id="login-button" onClick={handleLogIn}>
+          Log In
+        </button>
         <button id="signin-button" onClick={handleSubmit}>
           Create an account
         </button>

@@ -4,8 +4,8 @@ const { User } = require("../db");
 const validPassword = require("../lib/passwordUtils").validPassword;
 
 const customFields = {
-  usernameField: "uname",
-  passwordField: "pw",
+  usernameField: "email",
+  passwordField: "password",
 };
 
 const verifyCallback = (username, password, done) => {
@@ -14,7 +14,6 @@ const verifyCallback = (username, password, done) => {
       if (!user) {
         return done(null, false);
       }
-
       const isValid = validPassword(password, user.hash, user.salt);
 
       if (isValid) {
@@ -36,10 +35,8 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((userId, done) => {
-  User.findById(userId)
-    .then((user) => {
-      done(null, user);
-    })
-    .catch((err) => done(err));
+passport.deserializeUser(async (userId, done) => {
+  const user = await User.findAll({ where: { id: userId } });
+  if (!user) done(err);
+  done(null, user);
 });

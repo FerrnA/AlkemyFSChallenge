@@ -2,6 +2,9 @@ const { Transaction } = require("../../db");
 
 const getLastTransactions = async (req, res, next) => {
   try {
+    console.log(req.user);
+    console.log(req.session);
+    console.log(req.userInformation);
     const userTransactions = await Transaction.findAll({
       where: { id_user: 1 },
       attributes: ["date", "amount", "description", "type", "transaction_id"],

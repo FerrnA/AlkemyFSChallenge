@@ -63,7 +63,7 @@
   font-size: 16px;
   transition: 0.3s ease all;
 }
-.formulario button[type="submit"] {
+.formulario button[id="login-button"] {
   background: #0085ff;
   color: #fff;
 }
@@ -71,7 +71,7 @@
   color: #122;
 }
 
-.formulario button[type="submit"]:hover {
+.formulario button[id="login-button"]:hover {
   background: #0051ff;
 }
 

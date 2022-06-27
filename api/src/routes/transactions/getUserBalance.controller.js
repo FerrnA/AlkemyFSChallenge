@@ -14,8 +14,7 @@ const getUserBalance = async (req, res, next) => {
       attributes: [[sequelize.fn("sum", sequelize.col("amount")), "total"]],
     });
     const userBalance =
-      userBalanceIngress[0].dataValues.total -
-      userBalanceEgress[0].dataValues.total;
+      userBalanceIngress[0].dataValues.total - userBalanceEgress[0].dataValues.total;
     const data = { userBalance };
     res.json(data);
   } catch (error) {

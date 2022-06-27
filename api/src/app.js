@@ -1,15 +1,13 @@
 require("dotenv").config();
+require("./db.js");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
+const cors = require("cors");
 const session = require("express-session");
-//var crypto = require("crypto");
 var passport = require("passport");
 const pgSession = require("connect-pg-simple")(session);
 const pg = require("pg");
-require("./db.js");
-
-/* Routes --> new /routes/index.js*/
 const userTransactions = require("./routes/transactions/userTransactions.router.js");
 const user = require("./routes/user/index.js");
 
@@ -28,35 +26,19 @@ server.use((req, res, next) => {
   next();
 });
 
-/**
- * -------------- SESSION SETUP ----------------
- */
-/* server.use(
-  session({
-    store: new (require("connect-pg-simple")(session))({
-      // Insert connect-pg-simple options here
-    }),
-    secret: "nosoyunanimal",
-    resave: false,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
-    // Insert express-session options here
-  })
-);
-*/
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 // pool configuration https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pg/index.d.ts
 const poolConfigOptions = {
   connectionString: `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
 };
-
 const poolInstance = new pg.Pool(poolConfigOptions);
-
 const pgStore = new pgSession({
   pool: poolInstance,
   createTableIfMissing: true,
 });
 
+/* -------------- SESSION SETUP ---------------- */
 server.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -66,21 +48,16 @@ server.use(
   })
 );
 
-/**
- * -------------- PASSPORT AUTHENTICATION ----------------
- */
-// Need to require the entire Passport config module so app.js knows about it
+/* -------------- PASSPORT AUTHENTICATION ---------------- */
 require("./config/passport");
-
 server.use(passport.initialize());
-server.use(passport.session());
+server.use(passport.session()); /* 
 server.use((req, res, next) => {
   console.log(req.session);
   console.log(req.user);
   next();
-});
+}); */
 
-/*-------------- ROUTES ----------------*/
 server.use("/transactions", userTransactions);
 server.use("/user", user);
 
