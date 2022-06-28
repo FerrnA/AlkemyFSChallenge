@@ -45,19 +45,16 @@ server.use(
     resave: false,
     saveUninitialized: false,
     store: pgStore,
+    cookie: { secure: false, maxAge: 1000 * 30 },
   })
 );
 
 /* -------------- PASSPORT AUTHENTICATION ---------------- */
 require("./config/passport");
 server.use(passport.initialize());
-server.use(passport.session()); /* 
-server.use((req, res, next) => {
-  console.log(req.session);
-  console.log(req.user);
-  next();
-}); */
+server.use(passport.session());
 
+// app.use("/api/v1/users", usersRouter);
 server.use("/transactions", userTransactions);
 server.use("/user", user);
 

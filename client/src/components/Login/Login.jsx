@@ -27,6 +27,17 @@ function Login() {
       }
     });
   };
+  const handleSubmit2 = async () => {
+    await axios({
+      method: "get",
+      withCredentials: true,
+      url: "http://localhost:3001/user/user",
+    }).then((res) => {
+      if (res.statusText === "OK") {
+        console.log(res);
+      }
+    });
+  };
   const handleLogIn = async () => {
     await axios({
       method: "post",
@@ -69,6 +80,9 @@ function Login() {
         </button>
         <button id="signin-button" onClick={handleSubmit}>
           Create an account
+        </button>
+        <button id="signin-button" onClick={handleSubmit2}>
+          Get user
         </button>
       </div>
     </section>

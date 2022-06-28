@@ -1,15 +1,16 @@
-const { Transaction } = require("../../db");
+const { Transaction, conn } = require("../../db");
 const sequelize = require("sequelize");
 
 const getUserBalance = async (req, res, next) => {
   try {
+    const [results] = await conn.query("SELECT * FROM session LIMIT 1");
     const userBalanceIngress = await Transaction.findAll({
-      where: { id_user: 1, type: "Ingress" },
+      where: { id_user: results[0].sess.passport.user, type: "Ingress" },
       //attributes: ["date", "amount", "description", "type", "transaction_id"],
       attributes: [[sequelize.fn("sum", sequelize.col("amount")), "total"]],
     });
     const userBalanceEgress = await Transaction.findAll({
-      where: { id_user: 1, type: "Egress" },
+      where: { id_user: results[0].sess.passport.user, type: "Egress" },
       //attributes: ["date", "amount", "description", "type", "transaction_id"],
       attributes: [[sequelize.fn("sum", sequelize.col("amount")), "total"]],
     });
