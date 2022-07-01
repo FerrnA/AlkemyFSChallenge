@@ -1,11 +1,25 @@
-import React from "react";
-import { useOutletContext } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLastTransactions, getUserBalance } from "../../redux/reducers/transactions/actions";
 import { HomeStyled } from "./HomeStyled";
-import RowTransaction from "./RowTransaction/RowTransaction";
+import RowTransaction from "./RowTransaction";
 
 function Home() {
-  const { data, balance } = useOutletContext();
+  const dispatch = useDispatch();
+  let balance = useSelector((state) => state.transactions.userBalance);
+  let data = useSelector((state) => state.transactions.lastTransactions);
+
   const nOfTransactions = data?.length || 0;
+
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      dispatch(fetchLastTransactions());
+      dispatch(getUserBalance());
+    }
+    return () => (mounted = false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <HomeStyled>

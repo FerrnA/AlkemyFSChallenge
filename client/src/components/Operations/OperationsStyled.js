@@ -7,7 +7,7 @@ const alignTextDiv = css`
   text-align: center;
 `;
 
-export const ABMStyled = styled.div`
+export const OperationsStyled = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(12, 1fr);

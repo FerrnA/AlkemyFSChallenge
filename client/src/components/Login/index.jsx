@@ -48,7 +48,7 @@ function Login() {
       withCredentials: true,
       url: "http://localhost:3001/user/login",
     }).then((res) => {
-      if (res.statusText === "OK") navigate("/");
+      if (res.statusText === "OK") navigate("/operations");
     });
   };
 

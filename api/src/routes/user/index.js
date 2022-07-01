@@ -33,14 +33,13 @@ router.post("/register", async (req, res, next) => {
     hash: hash,
     salt: salt,
   });
-  newUser.save();
+  await newUser.save();
   res.send({ msg: "User registered successfully" });
 });
 
 router.get("/user", async (req, res, next) => {
   //const [results] = await conn.query("SELECT * FROM session LIMIT 1");
   //console.log(results[0].sess.passport);
-  console.log(req.user);
   res.send(req.user.dataValues.username);
 });
 
