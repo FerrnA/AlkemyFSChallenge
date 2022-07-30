@@ -5,17 +5,17 @@ export const FormStyled = styled.div`
   * {
     box-sizing: border-box;
   }
-  .transactionform {
+  .form {
     display: none;
   }
-  .formtop {
+  .form-top {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.2rem 0;
   }
-  .buttonsChoice {
+  .form-top__buttons {
     button {
       width: 100px;
       height: 2rem;
@@ -34,7 +34,7 @@ export const FormStyled = styled.div`
       border-bottom-left-radius: 0;
     }
   }
-  .amountDiv {
+  .form-top__amountDiv {
     width: 38%;
     display: flex;
     justify-content: flex-end;
@@ -42,12 +42,12 @@ export const FormStyled = styled.div`
       width: 100%;
     }
   }
-  .dateDiv {
+  .form-dateDiv {
     display: flex;
     justify-content: flex-end;
     align-items: center;
   }
-  .descriptionDiv {
+  .form-descriptionDiv {
     display: flex;
     align-items: center;
     padding: 0.5rem 0 0 1rem;
@@ -59,16 +59,16 @@ export const FormStyled = styled.div`
   }
   @media screen and (max-width: 992px) {
     width: 100%;
-    .descriptionDiv {
+    .form-descriptionDiv {
       padding: 0.5rem 0 0 0;
     }
   }
   @media screen and (max-width: 450px) {
-    .buttonsChoice {
+    .form-top__buttons {
       width: 120px;
     }
-    .dateDiv,
-    .dateDiv i {
+    .form-dateDiv,
+    .form-dateDiv i {
       font-size: 12px;
     }
   }

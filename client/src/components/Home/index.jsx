@@ -1,11 +1,16 @@
-import React, { useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { fetchLastTransactions, getUserBalance } from "../../redux/reducers/transactions/actions";
+import Loader from "../common/Loader";
 import { HomeStyled } from "./HomeStyled";
 import RowTransaction from "./RowTransaction";
 
 function Home() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   let balance = useSelector((state) => state.transactions.userBalance);
   let data = useSelector((state) => state.transactions.lastTransactions);
 
@@ -14,8 +19,17 @@ function Home() {
   useEffect(() => {
     let mounted = true;
     if (mounted) {
-      dispatch(fetchLastTransactions());
-      dispatch(getUserBalance());
+      axios({
+        method: "get",
+        withCredentials: true,
+        url: "http://localhost:3001/user/protected-route",
+      })
+        .then(() => {
+          dispatch(fetchLastTransactions());
+          setIsLoading(false);
+          dispatch(getUserBalance());
+        })
+        .catch(() => navigate("/login"));
     }
     return () => (mounted = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,23 +53,27 @@ function Home() {
               <th>Concepto</th>
             </tr>
           </thead>
-          <tbody>
-            {data && data.map((t) => <RowTransaction t={t} key={t.trasaction_id}></RowTransaction>)}
-            {/* Display a prompt in case there's no transactions in the database */}
-            {nOfTransactions === 0 && (
-              <div className="no-transactions">Añade nuevas transacciones para verlas aquí</div>
-            )}
-            {/* Add empty rows in case transactions are less than 10 */}
-            {nOfTransactions < 10 &&
-              [...Array(10 - nOfTransactions)].map((i) => (
-                <tr className="empty-cells">
-                  <td>foo</td>
-                  <td>foo</td>
-                  <td>foo</td>
-                  <td>foo</td>
-                </tr>
-              ))}
-          </tbody>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <tbody>
+              {data && data.map((t, i) => <RowTransaction t={t} key={i}></RowTransaction>)}
+              {/* Display a prompt in case there's no transactions in the database */}
+              {nOfTransactions === 0 && (
+                <div className="no-transactions">Añade nuevas transacciones para verlas aquí</div>
+              )}
+              {/* Add empty rows in case transactions are less than 10 */}
+              {nOfTransactions < 10 &&
+                [...Array(10 - nOfTransactions)].map((v, i) => (
+                  <tr className="empty-cells" key={i + 9}>
+                    <td>foo</td>
+                    <td>foo</td>
+                    <td>foo</td>
+                    <td>foo</td>
+                  </tr>
+                ))}
+            </tbody>
+          )}
         </table>
       </div>
     </HomeStyled>

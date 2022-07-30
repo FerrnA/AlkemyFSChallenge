@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import Home from "./components/Home";
 import Operations from "./components/Operations";
 import Login from "./components/Login";
+import ErrorMessage from "./components/common/ErrorMessage";
 
 function App() {
   return (
@@ -13,6 +14,10 @@ function App() {
           <Route index element={<Home />} />
           <Route path="operations" element={<Operations />} />
           <Route path="login" element={<Login />} />
+          <Route
+            path="*"
+            element={<ErrorMessage>Ops! Esta página aún no ha sido creada.</ErrorMessage>}
+          />
         </Route>
       </Routes>
     </div>

@@ -33,9 +33,10 @@ export const RowTransactionStyled = styled.tr`
       }
     }
     .optionsdiv {
+      z-index: 99;
       position: absolute;
-      top: 0.2rem;
-      right: -5.5rem;
+      top: 2.3rem;
+      right: 0.5rem;
       background-color: #ededed;
       border-radius: 6px;
       display: flex;

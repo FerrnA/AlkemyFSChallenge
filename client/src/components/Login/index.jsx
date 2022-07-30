@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import axios from "axios";
+import swal from "sweetalert";
 
 function Login() {
   const [userdata, setUserdata] = useState({ email: "", password: "" });
@@ -11,7 +12,7 @@ function Login() {
     setUserdata({ ...userdata, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async () => {
+  const handleRegister = async () => {
     await axios({
       method: "post",
       data: {
@@ -20,14 +21,27 @@ function Login() {
       },
       withCredentials: true,
       url: "http://localhost:3001/user/register",
-    }).then((res) => {
-      if (res.statusText === "OK") {
-        alert("succesfully registered");
-        window.location.reload();
-      }
-    });
+    })
+      .then((res) => {
+        if (res.statusText === "OK") {
+          swal({
+            title: `Registro con éxito`,
+            text: `ID: ${res.id}`,
+            icon: "success",
+            button: "Aceptar",
+          });
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        swal({
+          title: `Ya existe un usuario con ese username.`,
+          icon: "error",
+        });
+        console.log(err.message);
+      });
   };
-  const handleSubmit2 = async () => {
+  /* const handleRegister2 = async () => {
     await axios({
       method: "get",
       withCredentials: true,
@@ -37,7 +51,7 @@ function Login() {
         console.log(res);
       }
     });
-  };
+  }; */
   const handleLogIn = async () => {
     await axios({
       method: "post",
@@ -47,9 +61,18 @@ function Login() {
       },
       withCredentials: true,
       url: "http://localhost:3001/user/login",
-    }).then((res) => {
-      if (res.statusText === "OK") navigate("/operations");
-    });
+    })
+      .then((res) => {
+        if (res.statusText === "OK") {
+          navigate("/");
+        }
+      })
+      .catch(() =>
+        swal({
+          title: `Usuario o contraseña incorretas`,
+          icon: "error",
+        })
+      );
   };
 
   return (
@@ -78,12 +101,13 @@ function Login() {
         <button id="login-button" onClick={handleLogIn}>
           Log In
         </button>
-        <button id="signin-button" onClick={handleSubmit}>
+        <button id="signin-button" onClick={handleRegister}>
           Create an account
         </button>
-        <button id="signin-button" onClick={handleSubmit2}>
+        {/* 
+        <button id="signin-button" onClick={handleRegister2}>
           Get user
-        </button>
+        </button> */}
       </div>
     </section>
   );

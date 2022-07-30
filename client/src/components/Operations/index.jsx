@@ -1,12 +1,18 @@
-import React, { useEffect } from "react";
-import { OperationsStyled } from "./OperationsStyled";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchAllTransactions, getUserBalance } from "../../redux/reducers/transactions/actions";
+import axios from "axios";
+import Loader from "../common/Loader";
 import Form from "./Form";
 import RowTransaction from "./RowTransaction";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllTransactions, getUserBalance } from "../../redux/reducers/transactions/actions";
+import { OperationsStyled } from "./OperationsStyled";
 
 function Operations() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [reloadData, setReloadData] = useState(false);
   let balance = useSelector((state) => state.transactions.userBalance);
   let data = useSelector((state) => state.transactions.allTransactions);
 
@@ -15,12 +21,21 @@ function Operations() {
   useEffect(() => {
     let mounted = true;
     if (mounted) {
-      dispatch(fetchAllTransactions());
-      dispatch(getUserBalance());
+      axios({
+        method: "get",
+        withCredentials: true,
+        url: "http://localhost:3001/user/protected-route",
+      })
+        .then(() => {
+          dispatch(fetchAllTransactions());
+          setIsLoading(false);
+          dispatch(getUserBalance());
+        })
+        .catch(() => navigate("/login"));
     }
     return () => (mounted = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [reloadData]);
 
   return (
     <OperationsStyled>
@@ -28,7 +43,7 @@ function Operations() {
         <span>Balance ${balance}</span>
       </div>
       <div className="form">
-        <Form />
+        <Form reloadData={reloadData} setReloadData={setReloadData} />
       </div>
       <div className="title-abm">
         <span>Historial de transacciones</span>
@@ -43,23 +58,35 @@ function Operations() {
               <th>Concepto</th>
             </tr>
           </thead>
-          <tbody>
-            {data && data.map((t) => <RowTransaction t={t} key={t.trasaction_id}></RowTransaction>)}
-            {/* Display a prompt in case there's no transactions in the database */}
-            {nOfTransactions === 0 && (
-              <div className="no-transactions">Sin transacciones registradas</div>
-            )}
-            {/* Add empty rows in case transactions are less than 10 */}
-            {nOfTransactions < 10 &&
-              [...Array(10 - nOfTransactions)].map((i) => (
-                <tr className="empty-cells">
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              ))}
-          </tbody>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <tbody>
+              {data &&
+                data.map((t, i) => (
+                  <RowTransaction
+                    reloadData={reloadData}
+                    setReloadData={setReloadData}
+                    t={t}
+                    key={i}
+                  ></RowTransaction>
+                ))}
+              {/* Display a prompt in case there's no transactions in the database */}
+              {nOfTransactions === 0 && (
+                <div className="no-transactions">Sin transacciones registradas</div>
+              )}
+              {/* Add empty rows in case transactions are less than 10 */}
+              {nOfTransactions < 10 &&
+                [...Array(10 - nOfTransactions)].map((v, i) => (
+                  <tr className="empty-cells" key={i + 9}>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                ))}
+            </tbody>
+          )}
         </table>
       </div>
     </OperationsStyled>

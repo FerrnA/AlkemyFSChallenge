@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AsideButton, FormStyled } from "./FormStyled";
 import { BsPlusSquare } from "react-icons/bs";
-import { handleShowForm, handleClick } from "./utils/functions";
 import { postTransaction } from "../../../redux/reducers/transactions/actions";
 
 const bgwhite = { backgroundColor: "#e9e9ed" };
@@ -10,24 +9,39 @@ const bgblue = {
   backgroundImage: "linear-gradient(to right, #4c7ed5 0 20%, #1b92bb)",
 };
 
-function Form() {
-  const [transactionType, setTransactionType] = useState("");
-  const [transactionAmount, setTransactionAmount] = useState("");
-  const [transactionDate, setTransactionDate] = useState("");
-  const [transactionDescription, setTransactionDescription] = useState("");
+function Form({ reloadData, setReloadData }) {
+  const initialState = {
+    type: "",
+    amount: "",
+    date: "",
+    description: "",
+  };
+  const [transactionValues, setTransactionValues] = useState(initialState);
   const formRef = useRef();
   const dispatch = useDispatch();
 
   const handleSubmitForm = async () => {
     await dispatch(
       postTransaction({
-        type: transactionType,
-        amount: transactionAmount,
-        date: transactionDate,
-        description: transactionDescription,
+        type: transactionValues.type,
+        amount: transactionValues.amount,
+        date: transactionValues.date,
+        description: transactionValues.description,
       })
     );
-    window.location.reload(false);
+    setReloadData(!reloadData);
+    setTransactionValues(initialState);
+    handleShowForm(formRef);
+  };
+
+  const handleChange = (e) => {
+    setTransactionValues({ ...transactionValues, [e.target.name]: e.target.value });
+  };
+
+  const handleShowForm = (formRef) => {
+    formRef.current.style.display === "none"
+      ? (formRef.current.style.display = "block")
+      : (formRef.current.style.display = "none");
   };
 
   return (
@@ -38,61 +52,70 @@ function Form() {
           style={{ margin: "0 1.4rem 0 0", "&:hover": { cursor: "pointer" } }}
         />
         <span>Agregar nueva transacción</span>
-        <div className="transactionform" ref={formRef}>
-          <div className="formtop">
-            <div className="buttonsChoice">
+        <div className="form" ref={formRef}>
+          <div className="form-top">
+            <div className="form-top__buttons">
               <button
-                style={transactionType === "Ingress" ? bgblue : bgwhite}
-                onClick={() => handleClick("Ingress", setTransactionType)}
+                style={transactionValues.type === "Ingress" ? bgblue : bgwhite}
+                name="type"
+                value="Ingress"
+                onClick={(e) => handleChange(e)}
               >
                 Ingreso
               </button>
               <button
-                style={transactionType === "Egress" ? bgblue : bgwhite}
-                onClick={() => handleClick("Egress", setTransactionType)}
+                style={transactionValues.type === "Egress" ? bgblue : bgwhite}
+                name="type"
+                value="Egress"
+                onClick={(e) => handleChange(e)}
               >
                 Egreso
               </button>
             </div>
-            <div className="amountDiv">
+            <div className="form-top__amountDiv">
               <input
                 placeholder="$    monto"
-                value={transactionAmount}
+                name="amount"
+                value={transactionValues.amount}
                 onChange={(e) => {
-                  if (!isNaN(Number(e.target.value))) setTransactionAmount(e.target.value);
+                  if (!isNaN(Number(e.target.value))) handleChange(e);
                 }}
               ></input>
             </div>
           </div>
-          <div className="dateDiv">
+          <div className="form-dateDiv">
             <i>Date:&nbsp;</i>
             <input
               type="datetime-local"
-              value={transactionDate}
-              onChange={(e) => setTransactionDate(e.target.value)}
+              name="date"
+              value={transactionValues.date}
+              onChange={(e) => handleChange(e)}
             ></input>
           </div>
-          <div className="descriptionDiv">
+          <div className="form-descriptionDiv">
             <textarea
               placeholder="Concepto (opcional)"
-              value={transactionDescription}
-              onChange={(e) => setTransactionDescription(e.target.value)}
+              name="description"
+              value={transactionValues.description}
+              onChange={(e) => handleChange(e)}
             ></textarea>
           </div>
         </div>
       </FormStyled>
-      {transactionType.length > 0 && transactionAmount.length > 0 && transactionDate.length > 0 && (
-        <AsideButton>
-          <button
-            style={{
-              backgroundImage: "linear-gradient(to right, #4c7ed5 0 20%, #1b92bb)",
-            }}
-            onClick={handleSubmitForm}
-          >
-            Continuar
-          </button>
-        </AsideButton>
-      )}
+      {transactionValues.type.length > 0 &&
+        transactionValues.amount.length > 0 &&
+        transactionValues.date.length > 0 && (
+          <AsideButton>
+            <button
+              style={{
+                backgroundImage: "linear-gradient(to right, #4c7ed5 0 20%, #1b92bb)",
+              }}
+              onClick={handleSubmitForm}
+            >
+              Continuar
+            </button>
+          </AsideButton>
+        )}
     </>
   );
 }

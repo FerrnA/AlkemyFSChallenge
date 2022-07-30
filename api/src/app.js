@@ -45,7 +45,10 @@ server.use(
     resave: false,
     saveUninitialized: false,
     store: pgStore,
-    cookie: { secure: false, maxAge: 1000 * 30 },
+    cookie: {
+      secure: false,
+      maxAge: 3600000, //1 hour
+    },
   })
 );
 
